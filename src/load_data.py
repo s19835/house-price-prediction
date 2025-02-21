@@ -46,5 +46,6 @@ def load_file(file_path: str) -> pd.DataFrame:
     data = processor.load_data(file_path)
     return data.head()
 
-example = load_file("./data/raw/test.csv")
+#example = load_file("./data/raw/test.csv")
+example = load_file("./data/raw/csvjson.json")
 print(example)
