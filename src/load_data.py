@@ -41,6 +41,7 @@ class DataProcessorFactory:
 
 # Define data loading
 def load_file(file_path: str) -> pd.DataFrame:
+    '''Function for load the data file into the df'''
     file_extension = file_path[file_path.rfind("."):]
     processor = DataProcessorFactory.get_processor(file_extension)
     data = processor.load_data(file_path)
