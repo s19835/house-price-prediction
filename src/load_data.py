@@ -2,8 +2,6 @@ import zipfile
 from abc import ABC, abstractmethod
 import pandas as pd
 
-# Here we are using factory design pattern
-
 # 1. Base class (interface)
 class DataProcessor(ABC):
     @abstractmethod
@@ -27,6 +25,7 @@ class XLSXProcessor(DataProcessor):
     def load_data(self, file_path: str) -> pd.DataFrame:
         return pd.read_excel(file_path)
 
+# 3. Factory Class
 class DataProcessorFactory:
     @staticmethod
     def get_processor(file_extension):
@@ -40,3 +39,12 @@ class DataProcessorFactory:
             raise ValueError("Unsupported file type")
 
 
+# Define data loading
+def load_file(file_path: str) -> pd.DataFrame:
+    file_extension = file_path[file_path.rfind("."):]
+    processor = DataProcessorFactory.get_processor(file_extension)
+    data = processor.load_data(file_path)
+    return data.head()
+
+example = load_file("./data/raw/test.csv")
+print(example)
