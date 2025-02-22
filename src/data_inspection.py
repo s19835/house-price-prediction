@@ -81,7 +81,7 @@ class DataInspector:
         '''
         self._strategy = strategy
     
-    def inspect(self, df: pd.DataFrame) -> None:
+    def inspect(self, df: pd.DataFrame):
         '''
         perform data inspection using the strategy
 

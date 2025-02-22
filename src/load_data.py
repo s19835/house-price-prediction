@@ -1,6 +1,10 @@
 import zipfile
 from abc import ABC, abstractmethod
 import pandas as pd
+import logging
+
+logging.basicConfig(level=logging.INFO, format="%(message)s")
+logger = logging.getLogger(__name__)
 
 # 1. Base class (interface)
 class DataProcessor(ABC):
@@ -42,10 +46,21 @@ class DataProcessorFactory:
 # Define data loading
 def load_file(file_path: str) -> pd.DataFrame:
     '''Function for load the data file into the df'''
-    file_extension = file_path[file_path.rfind("."):]
-    processor = DataProcessorFactory.get_processor(file_extension)
-    data = processor.load_data(file_path)
-    return data
+    try:
+        file_extension = file_path[file_path.rfind('.'):]
+        logger.info(f"loading file {file_path} (Extension: {file_extension})")
+
+        processor = DataProcessorFactory.get_processor(file_extension)
+        data = processor.load_data(file_path)
+
+        logger.info(f"Successfully loaded data. Shape: {data.shape}")
+        return data
+    except Exception as e:
+        logger.error(f"Error loading file: {e}")
+        raise
+
+
+
 
 #example = load_file("./data/raw/test.csv")
 # example = load_file("./data/raw/csvjson.json")
