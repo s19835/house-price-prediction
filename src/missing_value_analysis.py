@@ -60,6 +60,6 @@ class SimpleMissingValueAnalysis(MissingValueAnalysis):
         visualize missing value using heatmap
         '''
         logger.info("\nVisualize missing value...")
-        sns.heatmap(df.isnull, cbar=False, cmap='viridis')
+        sns.heatmap(df.isnull(), cbar=False, cmap='viridis')
         plt.title("Missing value Heatmap")
         plt.show()
