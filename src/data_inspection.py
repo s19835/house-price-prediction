@@ -92,3 +92,10 @@ class DataInspector:
         print statement of stratgy out put (Summarized Data)
         '''
         self._strategy.inspect_data(df)
+    
+    @staticmethod
+    def is_dataframe_valid(df: pd.DataFrame) -> bool:
+        '''
+        Utility method to check if the DataFrame is valid
+        '''
+        return isinstance(df, pd.DataFrame) and not df.empty
