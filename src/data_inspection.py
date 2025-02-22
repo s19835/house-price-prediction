@@ -31,7 +31,7 @@ class DataTypeInspection(DataInspection):
         returns: Prints data types in the data frame
         '''
 
-        if isinstance(df, pd.DataFrame):
+        if not isinstance(df, pd.DataFrame):
             logger.error("Input must be a pandas data frame")
             return
 
