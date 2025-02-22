@@ -54,6 +54,7 @@ class DataSummaryStatistics(DataInspection):
             return
         
         logger.info("=== Summary statistics ===")
+        
         logger.info("\nNumerical Features: ")
         logger.info(df.describe())
         

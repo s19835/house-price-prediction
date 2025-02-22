@@ -45,8 +45,8 @@ def load_file(file_path: str) -> pd.DataFrame:
     file_extension = file_path[file_path.rfind("."):]
     processor = DataProcessorFactory.get_processor(file_extension)
     data = processor.load_data(file_path)
-    return data.head()
+    return data
 
 #example = load_file("./data/raw/test.csv")
-example = load_file("./data/raw/csvjson.json")
-print(example)
+# example = load_file("./data/raw/csvjson.json")
+# print(example)
