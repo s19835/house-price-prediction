@@ -36,7 +36,7 @@ class DataTypeInspection(DataInspection):
             return
 
         logger.info("=== Data Types in Data Frame ===")
-        logger.info("\n" + str(df.info()))
+        df.info()
 
 class DataSummaryStatistics(DataInspection):
     def inspect_data(self, df: pd.DataFrame):
