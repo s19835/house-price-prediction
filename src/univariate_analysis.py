@@ -49,9 +49,21 @@ class NumericalUnivariateAnalysis(UnivariateAnalysis):
 class CategoricalUnivariateAnalysis(UnivariateAnalysis):
     def analyze(self, df: pd.DataFrame, feature: str):
         '''
-        
+        perform a categorical univariate analysis
+
+        parameters:
+        df (pd.DataFrame): Data frame that need to be analysis
+        feature (str): categorical feature for analysis
+
+        return:
+        None: provide a visualization of the provided categorical variable
         '''
-        pass
+        sns.countplot(df, x=feature, palette="muted")
+        plt.title(f"Distribution of {feature}")
+        plt.xlabel(feature)
+        plt.ylabel("Count")
+        plt.xticks(rotation=45)
+        plt.show()
 
 # context class
 class UnivariateAnalyzer:
