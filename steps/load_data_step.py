@@ -17,5 +17,5 @@ def data_load_step(file_path: str) -> pd.DataFrame:
     file_extension = file_path[file_path.rfind('.'):]
     raw_data = DataProcessorFactory.get_processor(file_extension)
 
-    df = raw_data.load_data("../data/raw/train.csv")
+    df = raw_data.load_data(file_path)
     return df
