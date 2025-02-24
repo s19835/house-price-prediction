@@ -12,5 +12,5 @@ def ml_pipline():
 
     # load data step
     data = data_load_step(
-        "../data/raw/train.csv"
+        "./data/raw/test.csv"
     )
