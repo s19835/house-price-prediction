@@ -1,4 +1,4 @@
-from src.load_data import DataProcessorFactory
+from src.load_data import load_file
 from zenml import step
 
 import pandas as pd
@@ -14,8 +14,5 @@ def data_load_step(file_path: str) -> pd.DataFrame:
     return:
     pandas data frame with data from files
     '''
-    file_extension = file_path[file_path.rfind('.'):]
-    raw_data = DataProcessorFactory.get_processor(file_extension)
-
-    df = raw_data.load_data(file_path)
+    df = load_file(file_path)
     return df
