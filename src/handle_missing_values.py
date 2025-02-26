@@ -55,8 +55,8 @@ class FillMisssingValue(MissingValueHandlingStrategy):
         Initializing missing value strategy with sepcific method
 
         parameters:
-        method (str): which method to use - mean, median, mode
-        fill_value (any): any value to fill in the data frame
+        method (str): which method to use - mean, median, mode or constant
+        fill_value (any): constant value to fill in
         '''
         self.method = method
         self.fill_value = fill_value

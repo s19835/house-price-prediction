@@ -15,7 +15,7 @@ def missing_value_handling_step(df: pd.DataFrame, strategy: str = "mean") -> pd.
         handler = MissingValueHandler(FillMisssingValue(method=strategy))
     
     else:
-        raise ValueError("Unsupported missing value handling strategy")
+        raise ValueError(f"Unsupported missing value handling strategy {strategy}")
     
     cleaned_df = handler.handling_missing_value(df)
     return cleaned_df
