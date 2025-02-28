@@ -80,7 +80,7 @@ class IQRMethod(OutlierDetectionStrategy):
         return outliers
     
 # context class
-class OutlierDetector():
+class OutlierDetector:
     def __init__(self, strategy: OutlierDetectionStrategy):
         '''
         initialize outlier detection strategy
@@ -124,6 +124,10 @@ class OutlierDetector():
         pd.DataFrame: pandas data frame without outliers
         '''
         outliers = self.detect_outliers(df)
+
+        if outliers is None:
+            logger.error("Outlier detection returned None")
+            raise ValueError("Outlier detection must return a DataFrame or Series")
         
         if method == 'remove':
             logger.info("Removing Outliers...")

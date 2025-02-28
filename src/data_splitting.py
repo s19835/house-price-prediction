@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 import pandas as pd
 from sklearn.model_selection import train_test_split, KFold
+from typing import Tuple
 
 import logging
 
@@ -65,7 +66,7 @@ class TrainTestSplit(DataSplittingStrategy):
         self.test_size = test_size
         self.random_state = random_state
     
-    def split_data(self, df: pd.DataFrame, target_column: str):
+    def split_data(self, df: pd.DataFrame, target_column: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         '''
         Split the data into training and testing sets.
 
@@ -87,40 +88,40 @@ class TrainTestSplit(DataSplittingStrategy):
         return X_train, X_test, y_train, y_test
     
 # K-Fold
-class KFoldSplit(DataSplittingStrategy):
-    def __init__(self, n_splits:int=5, shuffle: bool=True, random_state: int=42):
-        '''
-        Initialize the strategy with number of splits, shuffle, and random state.
+# class KFoldSplit(DataSplittingStrategy):
+#     def __init__(self, n_splits:int=5, shuffle: bool=True, random_state: int=42):
+#         '''
+#         Initialize the strategy with number of splits, shuffle, and random state.
 
-        Parameters:
-            n_splits (int): Number of folds.
-            shuffle (bool): Whether to shuffle the data before splitting.
-            random_state (int): Random seed for reproducibility.
-        '''
-        self.n_splits = n_splits
-        self.shuffle = shuffle
-        self.random_state = random_state
+#         Parameters:
+#             n_splits (int): Number of folds.
+#             shuffle (bool): Whether to shuffle the data before splitting.
+#             random_state (int): Random seed for reproducibility.
+#         '''
+#         self.n_splits = n_splits
+#         self.shuffle = shuffle
+#         self.random_state = random_state
     
-    def split_data(self, df: pd.DataFrame, target_column: str):
-        '''
-        Split the data into K folds for cross-validation.
+#     def split_data(self, df: pd.DataFrame, target_column: str):
+#         '''
+#         Split the data into K folds for cross-validation.
 
-        Parameters:
-            df (pd.DataFrame): Data Frame that need to be splitted.
-            target_column (str): The target variable.
+#         Parameters:
+#             df (pd.DataFrame): Data Frame that need to be splitted.
+#             target_column (str): The target variable.
 
-        Returns:
-            KFold object: An iterator over the K folds.
-        '''
-        logger.info("Splitting data using K-Fold Cross-Validation...")
+#         Returns:
+#             KFold object: An iterator over the K folds.
+#         '''
+#         logger.info("Splitting data using K-Fold Cross-Validation...")
 
-        X, y = self.get_features_and_target(df, target_column)
+#         X, y = self.get_features_and_target(df, target_column)
 
-        return KFold(
-            n_splits=self.n_splits,
-            shuffle=self.shuffle,
-            random_state=self.random_state
-        ).split(X, y)
+#         return KFold(
+#             n_splits=self.n_splits,
+#             shuffle=self.shuffle,
+#             random_state=self.random_state
+#         ).split(X, y)
     
 # stratified split
 class StratifiedSplit(DataSplittingStrategy):
@@ -135,7 +136,7 @@ class StratifiedSplit(DataSplittingStrategy):
         self.test_size = test_size
         self.random_state = random_state
     
-    def split_data(self, df: pd.DataFrame, target_column: str):
+    def split_data(self, df: pd.DataFrame, target_column: str) -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
         '''
         Split the data into training and testing sets while preserving class distribution.
 
@@ -189,3 +190,5 @@ class DataSplitter:
         Returns:
         The training and testing splits for features and target.
         '''
+        logger.info(f"Splitting data using specified strategy: {self.strategy}")
+        return self.strategy.split_data(df, target_column)

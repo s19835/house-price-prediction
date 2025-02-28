@@ -24,7 +24,9 @@ class OutlierDetectionFactory:
 
 @step
 def outlier_detection_step(df: pd.DataFrame, column_name: str, strategy: str = 'zscore', handle_method: str = 'remove') -> pd.DataFrame:
+    
     '''Detects and removes outliers using outlier detection strategies'''
+    
     if df is None:
         logger.error("Received a NoneType DataFrame")
         raise ValueError("Input df must be non-null")
@@ -42,6 +44,7 @@ def outlier_detection_step(df: pd.DataFrame, column_name: str, strategy: str = '
     # Detect outliers
     outlier_detector = OutlierDetectionFactory.get_outlier_detector(strategy)
     outliers = outlier_detector.detect_outliers(df_numeric)
+    
     logger.info(f"Detected Outliers:\n{outliers}")
     
     # Handle outliers

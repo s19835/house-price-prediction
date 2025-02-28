@@ -16,7 +16,7 @@ def ml_pipline():
 
     # load data step
     data = data_load_step(
-        "./data/raw/test.csv"
+        "./data/raw/train.csv"
     )
 
     # handling missing values
@@ -28,7 +28,8 @@ def ml_pipline():
     )
 
     # outlier detection
-    clearned_data = outlier_detection_step(engineered_data, column_name='SalePrice')
+    #clearned_data = outlier_detection_step(engineered_data, column_name='SalePrice')
 
     # split data
-    X_train, X_test, y_train, y_test = data_splitting_step(clearned_data, target_column="SalePrice")
+    #X_train, X_test, y_train, y_test = data_splitting_step(clearned_data, target_column="SalePrice")
+    X_train, X_test, y_train, y_test = data_splitting_step(engineered_data, target_column="SalePrice")

@@ -1,7 +1,7 @@
 from src.data_splitting import (
     DataSplitter,
     TrainTestSplit,
-    KFoldSplit,
+    # KFoldSplit,
     StratifiedSplit
 )
 from typing import Tuple
@@ -17,8 +17,8 @@ class DataSplittingFactory:
     def get_data_splitter(strategy: str) -> DataSplitter:
         if strategy == 'train_test_split':
             data_splitter = DataSplitter(TrainTestSplit())
-        elif strategy == 'kfold_split':
-            data_splitter = DataSplitter(KFoldSplit())
+        # elif strategy == 'kfold_split':
+        #     data_splitter = DataSplitter(KFoldSplit())
         elif strategy == 'stratified_split':
             data_splitter = DataSplitter(StratifiedSplit())
         else:
@@ -29,7 +29,7 @@ class DataSplittingFactory:
 
 
 @step
-def data_splitting_step(df: pd.DataFrame, target_column: str, method: str='train_test')-> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
+def data_splitting_step(df: pd.DataFrame, target_column: str, method: str='train_test_split') -> Tuple[pd.DataFrame, pd.DataFrame, pd.Series, pd.Series]:
     if df is None:
         logger.error("Received a NoneType DataFrame")
         raise ValueError("Input df must be non-null")
@@ -42,12 +42,15 @@ def data_splitting_step(df: pd.DataFrame, target_column: str, method: str='train
         logger.error(f"Column '{target_column}' does not exist in the DataFrame.")
         raise ValueError(f"Column '{target_column}' does not exist in the DataFrame.")
     
-    if method == 'kfold_split':
-        logger.info(f"Unsupported method {method}: Method is not yet fully functional")
-        return None
+    # if method == 'kfold_split':
+    #     logger.info(f"Unsupported method {method}: Method is not yet fully functional")
+    #     return None
     
     data_splitter = DataSplittingFactory.get_data_splitter(strategy=method)
+    logger.info(f"data splitter: {data_splitter}")
     
-    return data_splitter.split_data(df, target_column)
+    X_train, X_test, y_train, y_test = data_splitter.split_data(df, target_column)
+    
+    return X_train, X_test, y_train, y_test
     
     
