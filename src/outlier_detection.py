@@ -111,4 +111,48 @@ class OutlierDetector():
         '''
         self.strategy.detect_outliers(df)
     
+    def handle_outliers(self, df: pd.DataFrame, method='remove', **kwargs) -> pd.DataFrame:
+        '''
+        by using methods like remove, cap handle outliers
+
+        parameters:
+        df (pd.DataFrame): Data Frame that has outliers
+        method (str): either remove or cap
+        **kwargs (any): any other inputs
+
+        return:
+        pd.DataFrame: pandas data frame without outliers
+        '''
+        outliers = self.detect_outliers(df)
+        
+        if method == 'remove':
+            logger.info("Removing Outliers...")
+            df_cleaned = df[(~outliers).all(axis=1)]
+        
+        elif method == 'cap':
+            logger.info("Capping Outliers...")
+            df_cleaned = df.clip(lower=df.quantile(0.01), upper=df.quantile(0.99), axis=1)
+        
+        else:
+            logger.warning(f"Unknown method '{method}'. No outlier handling performed")
+            return df
+        
+        return df_cleaned
     
+    def visualize_outliers(self, df: pd.DataFrame, features: list):
+        '''
+        visualize outliers for every feature
+
+        parameters:
+        df (pd.DataFrame): pandas data frame that has outliers
+        features (list): list of feature that has outliers to visualize
+
+        return:
+        None: provide a box plot for every feature that show outliers
+        '''
+        logger.info(f"Visualizing outliers in features: {features}")
+        
+        for feature in features:
+            sns.boxplot(x = df[feature])
+            plt.title(f"Boxplot of {feature}")
+            plt.show()
