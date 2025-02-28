@@ -95,6 +95,6 @@ if __name__ == "__main__":
     # logger.info(X_train)
     df_numeric = data.select_dtypes(include=[int, float])
     # outliers = detect_outliers(df_numeric)
-    df_cleaned = outlier_detection_step2(df_numeric, 'SalePrice')
+    df_cleaned = outlier_detection_step(df_numeric, 'SalePrice')
     # df_cleaned = outlier_detection_step(df_numeric, 'SalePrice', handle_method='remove')
     logger.info(df_cleaned.head())

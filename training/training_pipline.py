@@ -28,8 +28,7 @@ def ml_pipline():
     )
 
     # outlier detection
-    #clearned_data = outlier_detection_step(engineered_data, column_name='SalePrice')
+    clearned_data = outlier_detection_step(engineered_data, column_name='SalePrice')
 
     # split data
-    #X_train, X_test, y_train, y_test = data_splitting_step(clearned_data, target_column="SalePrice")
-    X_train, X_test, y_train, y_test = data_splitting_step(engineered_data, target_column="SalePrice")
+    X_train, X_test, y_train, y_test = data_splitting_step(clearned_data, target_column="SalePrice")

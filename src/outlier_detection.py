@@ -109,7 +109,7 @@ class OutlierDetector:
         return:
         pd.DataFrame: pandas data frame with boolean values if outlier exist or not
         '''
-        self.strategy.detect_outliers(df)
+        return self.strategy.detect_outliers(df)
     
     def handle_outliers(self, df: pd.DataFrame, method='remove', **kwargs) -> pd.DataFrame:
         '''
