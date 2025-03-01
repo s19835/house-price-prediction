@@ -5,6 +5,7 @@ from steps.feature_engineering_step import feature_engineering_step
 from steps.outlier_detection_step import outlier_detection_step
 from steps.data_splitting_step import data_splitting_step
 from steps.model_building_step import model_building_step
+from steps.model_evaluation_step import model_evaluation_step
 
 @pipeline(
     model=Model(
@@ -37,3 +38,12 @@ def ml_pipeline():
     # model building
     model = model_building_step(X_train, y_train)
 
+    # evaluate the model
+    evaluation_matrics, mse = model_evaluation_step(
+        trained_model=model, X_test=X_test, y_test=y_test
+    )
+
+    return model
+
+if __name__ == "__main__":
+    run = ml_pipeline
