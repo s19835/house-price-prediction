@@ -2,6 +2,7 @@ from typing import Annotated
 import pandas as pd
 from zenml import step, Model, ArtifactConfig
 from zenml.client import Client
+from zenml.enums import ArtifactType
 
 import mlflow
 
@@ -26,7 +27,7 @@ model = Model(
 )
 
 @step(enable_cache=False, experiment_tracker=experiment_tracker.name, model=model)
-def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> Annotated[Pipeline, ArtifactConfig(name='sklearn-pipline', is_model_artifact=True)]:
+def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> Annotated[Pipeline, ArtifactConfig(name='sklearn-pipline', artifact_type=ArtifactType.MODEL)]:
     '''
     Builds and trains a Linear Regression model using scikit-learn wrapped in a pipeline.
 
@@ -47,8 +48,8 @@ def model_building_step(X_train: pd.DataFrame, y_train: pd.Series) -> Annotated[
     categorical_cols = X_train.select_dtypes(include=['object', 'category']).columns
     numerical_cols = X_train.select_dtypes(include='number').columns
 
-    if numerical_cols == X_train.select_dtypes(exclude=['object', 'category']):
-        logger.warning("unexpected data type present in the data frame")
+    # if numerical_cols == X_train.select_dtypes(exclude=['object', 'category']):
+    #     logger.warning("unexpected data type present in the data frame")
     
     logger.info(f"Categorical Columns: {categorical_cols.tolist()}")
     logger.info(f"Numerical Columns: {numerical_cols.tolist()}")

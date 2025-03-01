@@ -1,5 +1,5 @@
 import click
-from training.training_pipline import ml_pipline
+from training.training_pipline import ml_pipeline
 from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
 
 import logging
@@ -14,7 +14,7 @@ def main():
     """
 
     # run the pipline
-    run = ml_pipline()
+    run = ml_pipeline()
 
     logger.info(f"\nmlflow UI --backend-stroe-ui '{get_tracking_uri()}'\n")
 

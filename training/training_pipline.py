@@ -4,6 +4,7 @@ from steps.missing_value_handling_step import missing_value_handling_step
 from steps.feature_engineering_step import feature_engineering_step
 from steps.outlier_detection_step import outlier_detection_step
 from steps.data_splitting_step import data_splitting_step
+from steps.model_building_step import model_building_step
 
 @pipeline(
     model=Model(
@@ -11,8 +12,8 @@ from steps.data_splitting_step import data_splitting_step
     )
 )
 
-def ml_pipline():
-    '''Define an end to end ML pipline'''
+def ml_pipeline():
+    '''Define an end to end ML pipeline'''
 
     # load data step
     data = data_load_step(
@@ -32,3 +33,7 @@ def ml_pipline():
 
     # split data
     X_train, X_test, y_train, y_test = data_splitting_step(clearned_data, target_column="SalePrice")
+
+    # model building
+    model = model_building_step(X_train, y_train)
+
