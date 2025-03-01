@@ -28,7 +28,7 @@ class ModelBuildingStrategy(ABC):
         pass
 
 # concreate classes with specific strategies
-class LinearRegressionStrategy(ModelBuildingStrategy):
+class LinearRegression(ModelBuildingStrategy):
     def build_and_train_model(self, X_train: pd.DataFrame, y_train: pd.Series) -> Pipeline:
         '''
         Builds and trains a linear regression model using scikit-learn.
