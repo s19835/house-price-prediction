@@ -4,6 +4,7 @@ from zenml import pipeline
 from training.training_pipeline import ml_pipeline
 from steps.dynamic_importer import dynamic_importer
 from steps.prediction_service_loader import prediction_service_loader
+from steps.predictor import predictor
 
 from zenml.integrations.mlflow.steps import mlflow_model_deployer_step
 
@@ -33,5 +34,6 @@ def inference_pipeline():
         step_name = 'mlflow_model_deployer_step'
     )
 
-    
+    # run prediction on batch size
+    predictor(service=model_development_service, input_data=batch_data)
     
