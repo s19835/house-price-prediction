@@ -16,7 +16,11 @@ def main():
     # run the pipline
     run = ml_pipeline()
 
-    logger.info(f"\nmlflow UI --backend-stroe-ui '{get_tracking_uri()}'\n")
+    logger.info(
+        f"Now run {run}\n "
+        f"    mlflow ui --backend-store-uri '{get_tracking_uri()}'\n"
+        "To inspect your experiment runs within the mlflow UI.\n"
+    )
 
 if __name__ == "__main__":
     main()

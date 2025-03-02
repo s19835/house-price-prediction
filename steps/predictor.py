@@ -24,27 +24,30 @@ def predictor(service: MLFlowDeploymentService, input_data: str) -> np.ndarray:
     data = json.loads(input_data)
 
     # Extract the actual data and expected columns
-    data.pop('columns', None) # rmv col if its present
-    data.pop('index', None) # rmv index if its present
+    data.pop('columns', None)  # remove column if it's present
+    data.pop('index', None)  # remove index if it's present
 
     # define the expected columns
     expected_columns = [
-        "Id", "MSSubClass", "LotFrontage", "LotArea", "YearBuilt", "YearRemod/Add",
-        "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "1stFlrSF", "2ndFlrSF",
-        "GrLivArea", "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath",
-        "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces",
-        "GarageCars", "GarageArea", "WoodDeckSF", "OpenPorchSF", "ScreenPorch",
+        "Id", "MSSubClass", "LotFrontage", "LotArea", "OverallQual", "OverallCond", "YearBuilt", "YearRemodAdd",
+        "MasVnrArea", "BsmtFinSF1", "BsmtFinSF2", "BsmtUnfSF", "TotalBsmtSF", "1stFlrSF", "2ndFlrSF",
+        "LowQualFinSF", "GrLivArea", "BsmtFullBath", "BsmtHalfBath", "FullBath", "HalfBath",
+        "BedroomAbvGr", "KitchenAbvGr", "TotRmsAbvGrd", "Fireplaces", "GarageYrBlt", "GarageCars",
+        "GarageArea", "WoodDeckSF", "OpenPorchSF", "EnclosedPorch", "3SsnPorch", "ScreenPorch",
         "PoolArea", "MiscVal", "MoSold", "YrSold"
     ]
+
+    # Ensure the input data has the correct number of columns
+    if len(data['data'][0]) != len(expected_columns):
+        raise ValueError(f"Expected {len(expected_columns)} columns, but got {len(data['data'][0])} columns")
 
     df = pd.DataFrame(data['data'], columns=expected_columns)
 
     # convert the data frame to json for prediction
-    json_list = json.loads(json.dumps(list(df.T.to_dict().values())))
-    data_array = np.array(json_list)
+    data_json = df.to_json(orient='split')
 
     # Run the prediction
-    prediction = service.predict(data_array)
+    prediction = service.predict(data_json)
 
     return prediction
 

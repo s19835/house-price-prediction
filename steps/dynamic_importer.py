@@ -5,21 +5,23 @@ from zenml import step
 def dynamic_importer() -> str:
     ''' Dynamically import data for testing '''
 
-    # api call, database query or loading from a file
     data = {
-        "Order": [1, 2],
         "Id": [1461, 1462],
         "MSSubClass": [20, 20],
         "LotFrontage": [80.0, 81.0],
         "LotArea": [11622, 14267],
+        "OverallQual": [5, 6],
+        "OverallCond": [5, 6],
         "YearBuilt": [2006, 1926],
-        "YearRemod/Add": [2007, 1961],
+        "YearRemodAdd": [2007, 1961],
+        "MasVnrArea": [0.0, 0.0],
         "BsmtFinSF1": [1256, 920],
         "BsmtFinSF2": [0, 0],
         "BsmtUnfSF": [50, 406],
         "TotalBsmtSF": [1306, 1326],
         "1stFlrSF": [1306, 1326],
         "2ndFlrSF": [0, 0],
+        "LowQualFinSF": [0, 0],
         "GrLivArea": [1306, 1326],
         "BsmtFullBath": [1, 1],
         "BsmtHalfBath": [0, 0],
@@ -29,10 +31,13 @@ def dynamic_importer() -> str:
         "KitchenAbvGr": [1, 1],
         "TotRmsAbvGrd": [5, 6],
         "Fireplaces": [1, 1],
+        "GarageYrBlt": [2006, 1926],
         "GarageCars": [2, 2],
         "GarageArea": [576, 500],
         "WoodDeckSF": [349, 0],
         "OpenPorchSF": [0, 60],
+        "EnclosedPorch": [0, 0],
+        "3SsnPorch": [0, 0],
         "ScreenPorch": [120, 0],
         "PoolArea": [0, 0],
         "MiscVal": [0, 12500],
@@ -41,8 +46,5 @@ def dynamic_importer() -> str:
     }
 
     df = pd.DataFrame(data)
-
-    # dataframe to json string
     json_data = df.to_json(orient="split")
-
     return json_data
