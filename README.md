@@ -21,32 +21,56 @@ The final trained model will be deployed as a web service using cloud platforms 
 
 ```plaintext
 End-to-End-ML-Pipeline/
-│── data/
-│   ├── raw/                # Raw data files (e.g., CSV, JSON)
-│   ├── processed/          # Cleaned and preprocessed data
-│   ├── features/           # Feature-engineered data
-│── notebooks/              # Jupyter Notebooks for EDA, prototyping, and experimentation
-│   ├── 01_eda.ipynb        # Exploratory Data Analysis
-│   ├── 02_preprocessing.ipynb  # Data preprocessing and feature engineering
-│   ├── 03_model_training.ipynb  # Model training and evaluation
-│── src/
-│   ├── data_preprocessing.py  # Script for data cleaning and feature engineering
-│   ├── model_training.py      # Script for model training and evaluation
-│   ├── hyperparameter_tuning.py  # Script for hyperparameter optimization
-│   ├── inference.py           # Script for model inference (predictions)
-│── api/
-│   ├── app.py                # Flask/FastAPI backend for serving the model
-│   ├── requirements_api.txt  # API-specific dependencies
-│── tests/
-│   ├── test_data.py          # Unit tests for data preprocessing
-│   ├── test_model.py         # Unit tests for model inference
-│── deployment/
-│   ├── Dockerfile            # Containerization for deployment
-│   ├── setup.sh              # Deployment script for cloud (AWS, Heroku, etc.)
-│   ├── model.pkl             # Trained model file
-│── config/
-│   ├── config.yaml           # Configuration settings (e.g., file paths, hyperparameters)
-│── logs/                     # Logs for tracking model performance and API usage
-│── README.md                 # Project documentation
-│── requirements.txt          # Dependencies for the entire project
+.
+├── LICENSE
+├── README.md
+├── analysis
+│   ├── bivariate_analysis.py
+│   ├── missing_value_analysis.py
+│   ├── multivariate_analysis.py
+│   └── univariate_analysis.py
+├── config
+│   └── config.yaml
+├── data
+│   ├── features
+│   ├── processed
+│   └── raw
+│       ├── csvjson.json
+│       ├── data_description.txt
+│       ├── test.csv
+│       └── train.csv
+├── deployment
+│   └── deployment_pipeline.py
+├── notebooks
+│   └── eda 006.ipynb
+├── requirements.txt
+├── run_deployment.py
+├── run_pipline.py
+├── sample_prediction.py
+├── src
+│   ├── data_inspection.py
+│   ├── data_splitting.py
+│   ├── feature_engineering.py
+│   ├── handle_missing_values.py
+│   ├── load_data.py
+│   ├── model_building.py
+│   ├── model_evaluation.py
+│   └── outlier_detection.py
+├── steps
+│   ├── data_splitting_step.py
+│   ├── dynamic_importer.py
+│   ├── feature_engineering_step.py
+│   ├── load_data_step.py
+│   ├── missing_value_handling_step.py
+│   ├── model_building_step.py
+│   ├── model_evaluation_step.py
+│   ├── outlier_detection_step.py
+│   ├── prediction_service_loader.py
+│   └── predictor.py
+├── tests
+│   ├── outlier_detection_test.py
+│   ├── test_data.py
+│   └── test_model.py
+└── training
+    └── training_pipeline.py
 ```
