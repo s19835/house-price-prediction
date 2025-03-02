@@ -1,5 +1,5 @@
 import click
-from training.training_pipline import ml_pipeline
+from training.training_pipeline import ml_pipeline
 from zenml.integrations.mlflow.mlflow_utils import get_tracking_uri
 
 import logging
