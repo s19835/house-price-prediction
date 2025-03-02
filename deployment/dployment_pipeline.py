@@ -2,6 +2,7 @@ import os
 from zenml import pipeline
 
 from training.training_pipeline import ml_pipeline
+from steps.dynamic_importer import dynamic_importer
 
 from zenml.integrations.mlflow.steps import mlflow_model_deployer_step
 
@@ -18,3 +19,11 @@ def continuous_deployment_pipeline():
     # deploy the model using mlflow
     mlflow_model_deployer_step(workers=3, deploy_decision=True, model=trained_model)
 
+@pipeline(enable_cache=False)
+def inference_pipeline():
+    '''Run batch inference with data from api'''
+
+    # load the batch data for inference
+    batch_data = dynamic_importer()
+
+    
